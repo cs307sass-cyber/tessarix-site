@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tessarix — Medicaid Intelligence Platform</title>
+  <style>
+    :root {
+      --blue: #1f5fbf;
+      --blue-deep: #123f80;
+      --navy: #0b1d3a;
+      --ink: #0f1f36;
+      --muted: #5f6f86;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --line: #dce5f1;
+      --ok: #1e8a5b;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: #fcfdff;
+      line-height: 1.5;
+    }
+    .container { width: min(1180px, 92vw); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(10px);
+      background: rgba(252,253,255,.9);
+      border-bottom: 1px solid rgba(220,229,241,.65);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:700; }
+    .logo-mark { width:28px;height:28px;border-radius:8px;background:linear-gradient(160deg,var(--blue),#4f8be0); }
+    .menu { display:flex; gap:28px; font-size:14px; color:#3f4d62; }
+    .lang { font-size:14px; padding:8px 12px; border:1px solid var(--line); border-radius:12px; }
+
+    .hero-wrap { padding: 40px 0 32px; background: linear-gradient(180deg,#f8fbff 0%,#fbfdff 100%); }
+    .hero {
+      background: #f2f6fc;
+      border: 1px solid #dde8f7;
+      border-radius: 30px;
+      box-shadow: 0 30px 80px rgba(25,61,112,.08);
+      padding: 44px;
+      display:grid; grid-template-columns: 1.05fr 1fr; gap: 30px;
+      overflow: hidden;
+    }
+    .eyebrow { font-size:12px; letter-spacing:.13em; color:var(--blue); font-weight:700; }
+    h1 { font-size: clamp(2rem,4vw,3.2rem); line-height:1.13; margin:.5rem 0 1rem; }
+    .sub { color:var(--muted); max-width: 57ch; }
+    .cta { margin-top: 28px; display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { padding:12px 18px; border-radius:12px; font-weight:600; border:1px solid transparent; text-decoration:none; font-size:14px; }
+    .btn.primary { background: var(--blue); color:white; }
+    .btn.ghost { border-color:var(--line); color:#2c3f58; background:white; }
+    .trust { margin-top:22px; font-size:13px; color:#4d5e77; }
+
+    .stack { position:relative; min-height: 430px; }
+    .panel {
+      position:absolute; background:var(--card); border:1px solid #dce5f0; border-radius: 16px;
+      box-shadow:0 15px 35px rgba(21,50,89,.12);
+      padding: 16px;
+    }
+    .panel h4 { margin:0; font-size:15px; }
+    .panel small { color:#6b7b93; }
+    .front { inset:56px 0 0 70px; z-index:3; }
+    .left { width: 250px; top: 0; left: 0; z-index:1; }
+    .right { width: 245px; right: 0; bottom: 0; z-index:1; }
+    .bubble { background:#f4f7fb; border:1px solid #e4ebf5; border-radius:12px; padding:10px; margin:12px 0; font-size:12px; color:#31445f; }
+    .response { background:#eef6ff; border-color:#cfe3ff; }
+    pre { margin:0; font-size:11px; background:#f7f9fd; border:1px solid #e3eaf4; padding:12px; border-radius:10px; overflow:auto; }
+    .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .chip { font-size:11px; padding:5px 9px; border-radius:999px; background:#f0f4fa; border:1px solid #dde5f0; }
+    .metric { display:flex; justify-content:space-between; font-size:12px; padding:6px 0; border-bottom:1px dashed #e6edf7; }
+    .chart { height:60px; margin-top:10px; border-radius:8px; background: linear-gradient(180deg, #eef5ff, #f9fbff); position:relative; }
+    .chart:after { content:""; position:absolute; inset:22px 10px 12px; border-bottom:2px solid #82a7de; border-left:2px solid transparent; transform:skewX(-28deg); }
+    .module { display:flex; justify-content:space-between; font-size:12px; padding:4px 0; }
+    .status { color:var(--ok); }
+
+    section { padding: 86px 0; }
+    .section-head { text-align:center; max-width:780px; margin:0 auto 34px; }
+    h2 { font-size: clamp(1.8rem,3.4vw,2.5rem); line-height:1.2; margin:.2rem 0 .7rem; }
+    .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .card { background:white; border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow: 0 8px 20px rgba(12,39,79,.05); }
+
+    .story { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:36px; margin:0 0 52px; }
+    .visual { background:#f4f8ff; border:1px solid #dce8f8; border-radius:18px; min-height:250px; padding:18px; }
+    .node { width:12px; height:12px; border-radius:50%; background:#5f8fd8; position:absolute; }
+    .viz-box { background:white; border:1px solid #d9e5f5; border-radius:12px; padding:12px; margin-bottom:10px; font-size:13px; }
+
+    .stats { background:#eaf2ff; border-top:1px solid #d7e6ff; border-bottom:1px solid #d7e6ff; }
+    .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding:20px 0; text-align:center; }
+    .num { font-size:28px; font-weight:700; color:#1b3d77; }
+
+    .cta-final { text-align:center; background:#f8fbff; border:1px solid #deebfb; border-radius:24px; padding:52px 24px; }
+
+    footer { margin-top:86px; background:#0b1d3a; color:#d4dded; padding:58px 0 28px; }
+    .foot-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:24px; }
+    footer h5 { margin:0 0 10px; color:#fff; font-size:14px; }
+    footer a { display:block; color:#c8d5ea; text-decoration:none; margin:8px 0; font-size:14px; }
+    .legal { border-top:1px solid #2b4066; margin-top:24px; padding-top:16px; display:flex; justify-content:space-between; font-size:13px; }
+
+    @media (max-width: 1020px) {
+      .hero, .story { grid-template-columns:1fr; }
+      .stack { min-height:520px; }
+      .front { inset:130px 0 0 40px; }
+      .cards, .stats-grid, .foot-grid { grid-template-columns:1fr 1fr; }
+      .menu { display:none; }
+    }
+    @media (max-width: 680px) {
+      .hero { padding:26px; }
+      .stack { min-height:560px; }
+      .left { width:86%; }
+      .right { width:86%; right:0; }
+      .front { inset:150px 0 0 14px; }
+      .cards, .stats-grid, .foot-grid { grid-template-columns:1fr; }
+      .legal { flex-direction:column; gap:8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo"><div class="logo-mark"></div> Tessarix</div>
+      <nav class="menu"><span>Features</span><span>Platform</span><span>Security</span><span>Schedule Demo</span></nav>
+      <div class="lang">EN ▾</div>
+    </div>
+  </header>
+
+  <div class="hero-wrap">
+    <div class="container hero">
+      <div>
+        <div class="eyebrow">MEDICAID INTELLIGENCE PLATFORM</div>
+        <h1>Unify Medicaid data across fragmented systems</h1>
+        <p class="sub">Connect claims, FHIR, enrollment, provider, and operational datasets into a unified intelligence platform designed for interoperability, governance, analytics, and AI-assisted workflows.</p>
+        <div class="cta">
+          <a class="btn primary" href="#">Schedule Demo</a>
+          <a class="btn ghost" href="#">Explore Platform</a>
+        </div>
+        <div class="trust">HIPAA-ready • SOC 2 Type II • FHIR-native • Audit-ready</div>
+      </div>
+      <div class="stack">
+        <div class="panel left">
+          <h4>Operational Analytics</h4><small>Platform-wide telemetry</small>
+          <div class="metric"><span>Data Sources</span><b>142 Connected</b></div>
+          <div class="metric"><span>Claims Processed</span><b>84.7TB</b></div>
+          <div class="metric"><span>Data Quality</span><b>99.8%</b></div>
+          <div class="metric"><span>Live Pipelines</span><b>218 Active</b></div>
+          <div class="chart"></div>
+        </div>
+        <div class="panel right">
+          <h4>Platform Extensions</h4><small>Module availability</small>
+          <div class="module"><span>DataLoom</span><span class="status">Installed</span></div>
+          <div class="module"><span>Federal Reporting</span><span class="status">Installed</span></div>
+          <div class="module"><span>Provider Intelligence</span><span class="status">Installed</span></div>
+          <div class="module"><span>Audit Center</span><span class="status">Installed</span></div>
+          <div class="module"><span>Prior Authorization AI</span><span>Available</span></div>
+          <div class="module"><span>HEDIS Intelligence</span><span>Available</span></div>
+          <div class="module"><span>FHIR Validator</span><span>Available</span></div>
+        </div>
+        <div class="panel front">
+          <h4>Tessarix · Ask Your Data</h4><small>AI-assisted querying across Medicaid datasets</small>
+          <div style="display:grid;grid-template-columns:1.15fr .85fr; gap:12px; margin-top:10px;">
+            <div>
+              <div class="bubble">“Show enrollment trends by region for Q3 2025”</div>
+              <div class="bubble response">Enrollment increased 8.4% across NC regions. Mecklenburg and Wake counties showed the highest member growth.</div>
+            </div>
+            <pre>SELECT county,
+SUM(member_count) AS total_members
+FROM medicaid_enrollment
+WHERE reporting_period = 'Q3-2025'
+GROUP BY county
+ORDER BY total_members DESC;</pre>
+          </div>
+          <div class="chips"><span class="chip">Top provider growth</span><span class="chip">Claims utilization</span><span class="chip">Care gap trends</span><span class="chip">Risk indicators</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Designed for complex Medicaid ecosystems</h2>
+      <p class="sub" style="margin:auto">Tessarix brings ingestion, governance, analytics, and AI-assisted exploration into one operational intelligence layer.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Intelligent Ingestion</h4><p>Connect claims, FHIR, provider, enrollment, and operational datasets from legacy and modern systems.</p></div>
+      <div class="card"><h4>Governance & Lineage</h4><p>Track lineage, schema evolution, and audit history across every data workflow.</p></div>
+      <div class="card"><h4>AI-Assisted Intelligence</h4><p>Generate insights, validate mappings, and surface operational anomalies automatically.</p></div>
+      <div class="card"><h4>Extensible Platform</h4><p>Deploy modular applications, reporting tools, and intelligence workflows through one ecosystem.</p></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="story">
+      <div><div class="eyebrow">METADATA & DISCOVERY</div><h2>Create shared understanding across teams and systems</h2><p class="sub">Automatically catalog schemas, relationships, lineage, and metadata to reduce operational silos and accelerate onboarding.</p></div>
+      <div class="visual"><div class="viz-box">Schema Graph: Claims ⇄ Enrollment ⇄ Provider ⇄ Eligibility</div><div class="viz-box">Lineage Path: Raw Intake → Normalized Layer → Analytics Zone → Reporting</div><div class="viz-box">Linked node health: 98.7%</div></div>
+    </div>
+    <div class="story">
+      <div class="visual"><div class="viz-box">Live Alerts: 3</div><div class="viz-box">Schema drift warning: provider_identifier type mismatch</div><div class="viz-box">Data quality score: 99.8% · Audit-ready status: Active</div></div>
+      <div><div class="eyebrow">QUALITY & GOVERNANCE</div><h2>Detect issues before reporting cycles break</h2><p class="sub">Validate data quality, monitor schema drift, and surface operational risks in real time across evolving Medicaid datasets.</p></div>
+    </div>
+    <div class="story" style="margin-bottom:0">
+      <div><div class="eyebrow">AI QUERYING</div><h2>Ask complex questions in plain language</h2><p class="sub">Generate SQL, surface insights, and explore Medicaid operational data through AI-assisted workflows built for analysts and decision-makers.</p></div>
+      <div class="visual"><div class="viz-box">Conversation: “Compare claims utilization by county, adjusted by enrollment.”</div><div class="viz-box">Generated SQL + confidence checks + anomaly callouts.</div><div class="viz-box">Insights: Wake +12.2%, Durham +8.5%, statewide PMPM stable.</div></div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="container stats-grid">
+      <div><div class="num">25+</div><div>Pre-built Apps</div></div>
+      <div><div class="num">200+</div><div>Live Dashboards</div></div>
+      <div><div class="num">99.8%</div><div>Uptime SLA</div></div>
+      <div><div class="num">2.4M+</div><div>Records Processed</div></div>
+    </div>
+  </div>
+
+  <section class="container">
+    <div class="cta-final">
+      <h2>Bring operational clarity to Medicaid data ecosystems</h2>
+      <p class="sub" style="margin:auto">Tessarix helps agencies and healthcare organizations unify, govern, and activate data across modern interoperability environments.</p>
+      <div class="cta" style="justify-content:center"><a class="btn primary" href="#">Schedule Demo</a></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div><div class="logo"><div class="logo-mark"></div> Tessarix</div><p>The Medicaid intelligence platform built for agencies, MCOs, and policy researchers.</p></div>
+        <div><h5>Product</h5><a href="#">Features</a><a href="#">Platform</a><a href="#">Security</a><a href="#">Roadmap</a></div>
+        <div><h5>Resources</h5><a href="#">Documentation</a><a href="#">Status Page</a><a href="#">Support</a><a href="#">Changelog</a></div>
+        <div><h5>Company</h5><a href="#">About Amida</a><a href="#">Careers</a><a href="#">Contact</a><a href="#">Press</a></div>
+      </div>
+      <div class="legal"><span>© 2026 Tessarix</span><span>Privacy · Terms · Cookies · Accessibility</span></div>
+    </div>
+  </footer>
+</body>
+</html>
